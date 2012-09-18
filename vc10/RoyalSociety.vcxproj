@@ -105,6 +105,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\RoyalSocietyApp.cpp" />
+    <ClCompile Include="..\src\Shape defs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Circle.h" />
@@ -112,7 +113,6 @@
     <ClInclude Include="..\include\Resources.h" />
     <ClInclude Include="..\include\RoyalSocietyApp.h" />
     <ClInclude Include="..\include\Shape.h" />
-    <ClInclude Include="..\include\ShapeList.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources.rc" />

@@ -24,7 +24,7 @@ public:
 	/**
 	* Uses the modification methods in RoyalSocietyApp.cpp to draw the shape
 	*/
-	void draw();
+	void draw(uint8_t* dataArr);
 
 	/**
 	* Checks to see if the given coordinates fall within the shape's bounds

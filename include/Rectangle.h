@@ -23,11 +23,11 @@ public:
 	* @param w Width of the rectangle
 	*/
 	Rectangle(Color8u* line, Color8u* fill, int x, int y, int l, int w);
-
+	
 	/**
 	* Uses the modification methods in RoyalSocietyApp.cpp to draw the shape
 	*/
-	void draw();
+	void draw(uint8_t* dataArr);
 
 	/**
 	* Checks to see if the given coordinates fall within the shape's bounds

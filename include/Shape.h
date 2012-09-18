@@ -2,6 +2,7 @@
 * Class representing a single shape. Shapes have a line color and a fill color.
 * @author Brandon Dadosky
 */
+
 #pragma once
 #include "cinder\ImageIo.h"
 
@@ -14,7 +15,7 @@ public:
 	/**
 	* Uses the modification methods in RoyalSocietyApp.cpp to draw the shape
 	*/
-	virtual void draw() = 0;
+	virtual void draw(uint8_t* dataArr) = 0;
 
 	/**
 	* Checks to see if the given coordinates fall within the shape's bounds
@@ -33,5 +34,6 @@ protected:
 	Shape(Color8u* line, Color8u* fill);
 
 private:
-	Color8u line, fill;
+	Color8u* line;
+	Color8u* fill;
 };

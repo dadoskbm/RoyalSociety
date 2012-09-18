@@ -18,6 +18,9 @@
     <ClCompile Include="..\src\RoyalSocietyApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Shape defs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">
@@ -33,9 +36,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Circle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ShapeList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
