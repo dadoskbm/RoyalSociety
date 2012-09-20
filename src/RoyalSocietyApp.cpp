@@ -18,12 +18,30 @@ void RoyalSocietyApp::setup()
 
 	surface = new Surface(WIDTH, HEIGHT, false);
 	dataArr = surface->getData();
+	//Test code
 	insertAfter(sentry, new ShapeRectangle(new Color8u(0, 0, 0), new Color8u(255, 0, 0), 10, 10, 40, 40));
+	insertAfter(sentry, new ShapeRectangle(new Color8u(0, 0, 0), new Color8u(0, 255, 0), 10, 20, 40, 40));
+	insertAfter(sentry, new ShapeRectangle(new Color8u(0, 0, 0), new Color8u(0, 0, 255), 10, 30, 40, 40));
+	
 }
 
 void RoyalSocietyApp::mouseDown( MouseEvent event )
 {
-	remove(sentry->next);
+	if(event.isLeft())
+		reverse();
+	/*if(event.isLeft() && sentry->next != sentry)
+		remove(sentry->next);*/
+	else if(event.isRight())
+		for(Node* cur = sentry->next; cur != sentry; cur = cur->next)
+		{
+			console() << event.getX() << "," << event.getY() << endl;
+			if(cur->item->isInsideShape(event.getX(), event.getY()))
+			{
+				console() << "Inside " << cur->item << endl;
+				promote(cur);
+				break;
+			}
+		}
 }
 
 void RoyalSocietyApp::update()
@@ -36,9 +54,9 @@ void RoyalSocietyApp::update()
 		}
 	}
 	dataArr = surface->getData();
-	//Go through linked list and call every draw method. Each draw method will modify the pixel array through many
+	//Go through linked list starting from the BOTTOM and call every draw method. Each draw method will modify the pixel array through many
 	//calls to modify(), therefore the surface is only updated past this point.
-	for(Node* cur = sentry->next;cur->item != NULL; cur = cur->next)
+	for(Node* cur = sentry->prev;cur->item != NULL; cur = cur->prev)
 	{
 		cur->item->draw(dataArr);
 	}
@@ -78,6 +96,22 @@ void drawCircle(int xC, int yC, int r, Color8u* line, Color8u* fill, uint8_t* da
 		}
 	}
 			
+}
+
+/**
+* Reverses the list
+*/
+void RoyalSocietyApp::reverse()
+{
+	Node* cur = sentry;
+	Node* temp;
+	do
+	{
+		temp = cur->next;
+		cur->next = cur->prev;
+		cur->prev = temp;
+		cur = cur->next;
+	} while(cur != sentry);
 }
 
 /**

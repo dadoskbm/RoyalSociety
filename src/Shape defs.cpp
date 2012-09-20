@@ -48,6 +48,15 @@ bool ShapeRectangle::isInsideShape(int pointX, int pointY)
 		return false;
 }
 
+Circle::Circle(Color8u* line, Color8u* fill, int xC, int yC, int r)
+{
+	this->line = line;
+	this->fill = fill;
+	this->xC = xC;
+	this->yC = yC;
+	this->r = r;
+}
+
 void Circle::draw(uint8_t* dataArr)
 {
 	double dist;

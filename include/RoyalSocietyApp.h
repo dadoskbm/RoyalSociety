@@ -73,6 +73,10 @@ private:
 	* Moves the specified node to the very top of the list
 	*/
 	void promote(Node* node);
+	/**
+	* Reverses the list
+	*/
+	void reverse();
 	
 	Surface* surface;
 	uint8_t* dataArr;
