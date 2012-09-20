@@ -1,5 +1,7 @@
-#include <RoyalSocietyApp.h>
+#include "RoyalSocietyApp.h"
 #include "cinder/gl/Texture.h"
+#include "Rectangle.h"
+#include "Circle.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -7,7 +9,6 @@ using namespace std;
 
 void RoyalSocietyApp::setup()
 {
-	
 	//Establishes the sentry node. Its next and previous pointers point to itself, which is
 	//very important for establishing a circular linked list.
 	sentry = new Node;
@@ -17,16 +18,23 @@ void RoyalSocietyApp::setup()
 
 	surface = new Surface(WIDTH, HEIGHT, false);
 	dataArr = surface->getData();
-	drawRectangle(10,10,50,50,new Color8u(0,0,0), new Color8u(255,0,0), dataArr);
+	insertAfter(sentry, new ShapeRectangle(new Color8u(0, 0, 0), new Color8u(255, 0, 0), 10, 10, 40, 40));
 }
 
 void RoyalSocietyApp::mouseDown( MouseEvent event )
 {
+	remove(sentry->next);
 }
 
 void RoyalSocietyApp::update()
 {
-	gl::clear(BGCOLOR);
+	for(int x = 0; x < WIDTH; x++)
+	{
+		for(int y = 0; y < HEIGHT; y++)
+		{
+			modify(&BGCOLOR, x, y, dataArr);
+		}
+	}
 	dataArr = surface->getData();
 	//Go through linked list and call every draw method. Each draw method will modify the pixel array through many
 	//calls to modify(), therefore the surface is only updated past this point.

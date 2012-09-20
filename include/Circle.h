@@ -33,7 +33,6 @@ public:
 	* @return true if the given coordinates fall within the boundaries of the shape.
 	*/
 	bool isInsideShape(int x, int y);
-private:
-	Color8u line, fill;
+protected:
 	int xC, yC, r;
 };

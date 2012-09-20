@@ -40,8 +40,8 @@ public:
 
 //Drawing methods (Note: Outside of any class)
 void drawLine(int xI, int yI, int xF, int yF, Color8u* color,uint8_t* dataArr);
-void drawRectangle(int xA, int yA, int xB, int yB, Color8u* line, Color8u* fill,uint8_t* dataArr);
-void drawCircle(int xC, int yC, int r, Color8u* line, Color8u* fill,uint8_t* dataArr);
+//void drawRectangle(int xA, int yA, int xB, int yB, Color8u* line, Color8u* fill,uint8_t* dataArr); //Done by draw method in ShapeRectangle, should go unused.
+//void drawCircle(int xC, int yC, int r, Color8u* line, Color8u* fill,uint8_t* dataArr);
 bool modify(Color8u* color, int x, int y,uint8_t* dataArr);
 
 class RoyalSocietyApp : public AppBasic

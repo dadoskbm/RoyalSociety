@@ -10,7 +10,7 @@
 
 using namespace ci;
 
-class Rectangle : public Shape
+class ShapeRectangle : public Shape
 {
 public:
 	/**
@@ -22,7 +22,7 @@ public:
 	* @param l Length of the rectangle
 	* @param w Width of the rectangle
 	*/
-	Rectangle(Color8u* line, Color8u* fill, int x, int y, int l, int w);
+	ShapeRectangle(Color8u* line, Color8u* fill, int x, int y, int l, int w);
 	
 	/**
 	* Uses the modification methods in RoyalSocietyApp.cpp to draw the shape
@@ -36,6 +36,8 @@ public:
 	* @return true if the given coordinates fall within the boundaries of the shape.
 	*/
 	bool isInsideShape(int x, int y);
+protected:
+	int x,y,l,w;
 };
 
 
