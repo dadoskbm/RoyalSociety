@@ -15,6 +15,7 @@ Project by Brandon Dadosky for CSE 274 homework assignment 2
 */
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/gl.h"
+#include "cinder/gl/Texture.h"
 #include "Shape.h"
 
 #define WIDTH 800
@@ -90,6 +91,8 @@ private:
 	//The first node in the linked list. The first one always has a null pointer for its item,
 	//and when initially created, next will point to itself.
 	Node* sentry;
+	bool showInstructions;
+	gl::Texture instructions;
 	
 };
 

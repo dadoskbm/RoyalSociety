@@ -1,5 +1,6 @@
 #include "RoyalSocietyApp.h"
 #include "cinder/gl/Texture.h"
+#include "cinder/ImageIo.h"
 #include "Rectangle.h"
 #include "Circle.h"
 #include <Windows.h>
@@ -10,6 +11,8 @@ using namespace std;
 
 void RoyalSocietyApp::setup()
 {
+	showInstructions = false;
+	instructions = loadImage("instructions.png");
 	//Establishes the sentry node. Its next and previous pointers point to itself, which is
 	//very important for establishing a circular linked list.
 	sentry = new Node;
@@ -30,7 +33,12 @@ void RoyalSocietyApp::setup()
 void RoyalSocietyApp::mouseDown( MouseEvent event )
 {
 	if(event.isLeft())
-		reverse();
+	{
+		if(event.isControlDown())
+			remove(sentry->next);
+		else
+			reverse();
+	}
 	/*if(event.isLeft() && sentry->next != sentry)
 		remove(sentry->next);*/
 	else if(event.isRight())
@@ -44,6 +52,17 @@ void RoyalSocietyApp::mouseDown( MouseEvent event )
 				break;
 			}
 		}
+	else if(event.isMiddle())
+	{
+		Color8u line = Color8u(rand() % 256, rand() % 256, rand() % 256);
+		Color8u fill = Color8u(rand() % 256, rand() % 256, rand() % 256);
+		int x = rand() % (WIDTH - 200);
+		int y = rand() % (HEIGHT - 200);
+		if(rand() % 2 == 0)
+			insertAfter(sentry, new ShapeRectangle(line, fill, x, y, rand() % 200, rand() % 200));
+		else
+			insertAfter(sentry, new Circle(line, fill, x, y, rand() % 200));
+	}
 }
 
 void RoyalSocietyApp::update()
@@ -68,6 +87,8 @@ void RoyalSocietyApp::draw()
 {
 	
 	gl::draw(*surface);
+	if(showInstructions)
+		gl::draw(instructions,Vec2f(0,0));
 }
 
 /**
@@ -305,6 +326,9 @@ void RoyalSocietyApp::keyDown(KeyEvent event)
 		break;
 	case 'd':
 		sentry->next->item->move(SPEED, 0);
+		break;
+	case event.KEY_SLASH:
+		showInstructions = !showInstructions;
 		break;
 	}
 }
