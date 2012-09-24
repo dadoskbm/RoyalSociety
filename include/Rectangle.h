@@ -22,12 +22,20 @@ public:
 	* @param l Length of the rectangle
 	* @param w Width of the rectangle
 	*/
-	ShapeRectangle(Color8u* line, Color8u* fill, int x, int y, int l, int w);
+	ShapeRectangle(Color8u line, Color8u fill, int x, int y, int l, int w);
 	
 	/**
 	* Uses the modification methods in RoyalSocietyApp.cpp to draw the shape
 	*/
 	void draw(uint8_t* dataArr);
+
+	/**
+	 Moves the shape. The shape will not move any further if moving it would
+	 take any part of it off the screen
+	 @param dX Amount in the X to move it
+	 @param dY Amount in the Y to move it
+	 */
+	void move(int dX, int dY);
 
 	/**
 	* Checks to see if the given coordinates fall within the shape's bounds

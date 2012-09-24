@@ -26,6 +26,10 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
+//Drawing methods (Note: Outside of any class)
+void drawLine(int xI, int yI, int xF, int yF, Color8u color,uint8_t* dataArr);
+bool modify(Color8u color, int x, int y,uint8_t* dataArr);
+
 /**
 * Node of the linked list. item points to the node's item, next points to the next node, prev points to the previous node.
 */
@@ -38,21 +42,24 @@ public:
 	~Node();
 };
 
-//Drawing methods (Note: Outside of any class)
-void drawLine(int xI, int yI, int xF, int yF, Color8u* color,uint8_t* dataArr);
-//void drawRectangle(int xA, int yA, int xB, int yB, Color8u* line, Color8u* fill,uint8_t* dataArr); //Done by draw method in ShapeRectangle, should go unused.
-//void drawCircle(int xC, int yC, int r, Color8u* line, Color8u* fill,uint8_t* dataArr);
-bool modify(Color8u* color, int x, int y,uint8_t* dataArr);
 
 class RoyalSocietyApp : public AppBasic
 {
   public:
 	void setup();
 	void mouseDown( MouseEvent event );	
+	void keyDown(KeyEvent event);
 	void update();
 	void draw();
 	//void prepareSettings(Settings* settings);
 private:
+	/**
+	* Moves a group of nodes.
+	* @param first First member to move
+	* @param last Last member to move
+	* @param to Member to place the group after.
+	*/
+	void moveGroup(Node* first, Node* last, Node* to);
 	/**
 	* Adds a Shape to the list after the given Node
 	* @param where Where to place the new item after

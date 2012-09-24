@@ -2,13 +2,7 @@
 #include <Circle.h>
 #include "RoyalSocietyApp.h"
 
-//Shape::Shape(Color8u* l, Color8u* f)
-//{
-//	line = l;
-//	fill = f;
-//}
-
-ShapeRectangle::ShapeRectangle(Color8u* line, Color8u* fill, int x, int y, int l, int w)
+ShapeRectangle::ShapeRectangle(Color8u line, Color8u fill, int x, int y, int l, int w)
 {
 	this->x = x;
 	this->y = y;
@@ -48,7 +42,19 @@ bool ShapeRectangle::isInsideShape(int pointX, int pointY)
 		return false;
 }
 
-Circle::Circle(Color8u* line, Color8u* fill, int xC, int yC, int r)
+void ShapeRectangle::move(int dX, int dY)
+{
+	int newX = x + dX;
+	int newY = y + dY;
+	if(newX >= 0 && newX + w < WIDTH
+		&& newY >= 0 && newY + l < HEIGHT)
+	{
+		x = newX;
+		y = newY;
+	}
+}
+
+Circle::Circle(Color8u line, Color8u fill, int xC, int yC, int r)
 {
 	this->line = line;
 	this->fill = fill;
@@ -83,4 +89,16 @@ bool Circle::isInsideShape(int xPoint, int yPoint)
 		return true;
 	else
 		return false;
+}
+
+void Circle::move(int dX, int dY)
+{
+	int newX = xC + dX;
+	int newY = yC + dY;
+	if(newX - r >= 0 && newX + r < WIDTH
+		&& newY - r >= 0 && newY + r < HEIGHT)
+	{
+		xC = newX;
+		yC = newY;
+	}
 }

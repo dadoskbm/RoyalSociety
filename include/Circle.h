@@ -19,12 +19,20 @@ public:
 	* @param yC Y-coordinate for the center of the circle
 	* @param r Radius of the circle
 	*/
-	Circle(Color8u* line, Color8u* fill, int xC, int yC, int r);
+	Circle(Color8u line, Color8u fill, int xC, int yC, int r);
 
 	/**
 	* Uses the modification methods in RoyalSocietyApp.cpp to draw the shape
 	*/
 	void draw(uint8_t* dataArr);
+
+	/**
+	 Moves the shape. The shape will not move any further if moving it would
+	 take any part of it off the screen
+	 @param dX Amount in the X to move it
+	 @param dY Amount in the Y to move it
+	 */
+	void move(int dX, int dY);
 
 	/**
 	* Checks to see if the given coordinates fall within the shape's bounds

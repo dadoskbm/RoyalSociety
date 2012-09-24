@@ -2,6 +2,7 @@
 #include "cinder/gl/Texture.h"
 #include "Rectangle.h"
 #include "Circle.h"
+#include <Windows.h>
 
 using namespace ci;
 using namespace ci::app;
@@ -19,9 +20,10 @@ void RoyalSocietyApp::setup()
 	surface = new Surface(WIDTH, HEIGHT, false);
 	dataArr = surface->getData();
 	//Test code
-	insertAfter(sentry, new ShapeRectangle(new Color8u(0, 0, 0), new Color8u(255, 0, 0), 10, 10, 40, 40));
-	insertAfter(sentry, new ShapeRectangle(new Color8u(0, 0, 0), new Color8u(0, 255, 0), 10, 20, 40, 40));
-	insertAfter(sentry, new ShapeRectangle(new Color8u(0, 0, 0), new Color8u(0, 0, 255), 10, 30, 40, 40));
+	insertAfter(sentry, new ShapeRectangle(Color8u(0, 0, 0), Color8u(255, 0, 0), 10, 10, 40, 40));
+	insertAfter(sentry, new ShapeRectangle(Color8u(0, 0, 0), Color8u(0, 255, 0), 10, 20, 40, 40));
+	insertAfter(sentry, new ShapeRectangle(Color8u(0, 0, 0), Color8u(0, 0, 255), 10, 30, 40, 40));
+	insertAfter(sentry, new Circle(Color8u(0, 0, 0), Color8u(0xFA, 0xCA, 0xDE),225, 235, 99));
 	
 }
 
@@ -50,7 +52,7 @@ void RoyalSocietyApp::update()
 	{
 		for(int y = 0; y < HEIGHT; y++)
 		{
-			modify(&BGCOLOR, x, y, dataArr);
+			modify(BGCOLOR, x, y, dataArr);
 		}
 	}
 	dataArr = surface->getData();
@@ -79,24 +81,24 @@ void RoyalSocietyApp::draw()
 * @param line the color object containing color information for the outside line
 * @param fill the color of the fill. If this value is 0, the circle won't be filled.
 */
-void drawCircle(int xC, int yC, int r, Color8u* line, Color8u* fill, uint8_t* dataArr) 
-{
-	double dist;
-	for(int x = 0; x < WIDTH; x++)
-	{
-		for(int y = 0; y < HEIGHT; y++)
-		{
-			//Calculate the distance from the center, if it equals (or is close to)
-			// the radius, the pixel becomes part of the circle.
-			dist = math<double>().sqrt((xC - x) * (xC - x) + (yC - y) * (yC - y));
-			if(math<double>().abs(r - dist) < 0.5)
-				modify(line, x, y, dataArr);
-			else if(dist < r && fill != 0) //TODO: Fill isn't exactly right, and stays toward the right of the circle. Might be a rounding issue.
-				modify(fill, x, y, dataArr);
-		}
-	}
-			
-}
+//void drawCircle(int xC, int yC, int r, Color8u* line, Color8u* fill, uint8_t* dataArr) 
+//{
+//	double dist;
+//	for(int x = 0; x < WIDTH; x++)
+//	{
+//		for(int y = 0; y < HEIGHT; y++)
+//		{
+//			//Calculate the distance from the center, if it equals (or is close to)
+//			// the radius, the pixel becomes part of the circle.
+//			dist = math<double>().sqrt((xC - x) * (xC - x) + (yC - y) * (yC - y));
+//			if(math<double>().abs(r - dist) < 0.5)
+//				modify(line, x, y, dataArr);
+//			else if(dist < r && fill != 0) //TODO: Fill isn't exactly right, and stays toward the right of the circle. Might be a rounding issue.
+//				modify(fill, x, y, dataArr);
+//		}
+//	}
+//			
+//}
 
 /**
 * Reverses the list
@@ -125,7 +127,7 @@ void RoyalSocietyApp::reverse()
 * @param y2 the y coordinate of the second point
 * @param color the Color to of the line
 */
-void drawLine(int x1, int y1, int x2, int y2, Color8u* color, uint8_t* dataArr)
+void drawLine(int x1, int y1, int x2, int y2, Color8u color, uint8_t* dataArr)
 {
 	//Implementation of Bresenham's line algorithm, derived from pseudocode
 	//from Wikipedia.
@@ -172,57 +174,57 @@ void drawLine(int x1, int y1, int x2, int y2, Color8u* color, uint8_t* dataArr)
 * @param fill the color for the fill. If this is 0, the rectangle will not be filled.
 */
 
-void drawRectangle(int xA, int yA, int xB, int yB, Color8u* line, Color8u* fill, uint8_t* dataArr)
-{
-	int x1, x2, y1, y2;
-
-	//Swap values so x1 < x2 and y1 < y2
-	if(xB < xA && yB < yA)
-	{
-		x1 = xB;
-		y1 = yB;
-		x2 = xA;
-		y2 = yA;
-	}
-	else if(xB < xA && yB > yA)
-	{
-		x1 = xB;
-		y1 = yA;
-		x2 = xA;
-		y2 = yB;
-	}
-	else if(xB > xA && yB < yA)
-	{
-		x1 = xA;
-		y1 = xB;
-		x2 = xB;
-		y2 = yA;
-	}
-	else
-	{
-		x1 = xA;
-		x2 = xB;
-		y1 = yA;
-		y2 = yB;
-	}
-	
-
-	drawLine(x1, y1, x1, y2, line, dataArr);
-	drawLine(x1, y1, x2, y1, line, dataArr);
-	drawLine(x1, y2, x2, y2, line, dataArr);
-	drawLine(x2, y1, x2, y2, line, dataArr);
-
-	if(fill != 0)
-	{
-		for(int x = x1 + 1; x < x2; x++)
-		{
-			for(int y = y1 + 1; y < y2; y++)
-			{
-				modify(fill, x, y, dataArr);
-			}
-		}
-	}
-}
+//void drawRectangle(int xA, int yA, int xB, int yB, Color8u* line, Color8u* fill, uint8_t* dataArr)
+//{
+//	int x1, x2, y1, y2;
+//
+//	//Swap values so x1 < x2 and y1 < y2
+//	if(xB < xA && yB < yA)
+//	{
+//		x1 = xB;
+//		y1 = yB;
+//		x2 = xA;
+//		y2 = yA;
+//	}
+//	else if(xB < xA && yB > yA)
+//	{
+//		x1 = xB;
+//		y1 = yA;
+//		x2 = xA;
+//		y2 = yB;
+//	}
+//	else if(xB > xA && yB < yA)
+//	{
+//		x1 = xA;
+//		y1 = xB;
+//		x2 = xB;
+//		y2 = yA;
+//	}
+//	else
+//	{
+//		x1 = xA;
+//		x2 = xB;
+//		y1 = yA;
+//		y2 = yB;
+//	}
+//	
+//
+//	drawLine(x1, y1, x1, y2, line, dataArr);
+//	drawLine(x1, y1, x2, y1, line, dataArr);
+//	drawLine(x1, y2, x2, y2, line, dataArr);
+//	drawLine(x2, y1, x2, y2, line, dataArr);
+//
+//	if(fill != 0)
+//	{
+//		for(int x = x1 + 1; x < x2; x++)
+//		{
+//			for(int y = y1 + 1; y < y2; y++)
+//			{
+//				modify(fill, x, y, dataArr);
+//			}
+//		}
+//	}
+//}
 
 
 /**
@@ -240,7 +242,7 @@ void drawRectangle(int xA, int yA, int xB, int yB, Color8u* line, Color8u* fill,
 * 
 * @returns false if and only if the X or Y coordinates are out of bounds.
 */
-bool modify(Color8u* color, int x, int y, uint8_t* dataArr)
+bool modify(Color8u color, int x, int y, uint8_t* dataArr)
 {
 	if(x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT)
 	{
@@ -248,11 +250,12 @@ bool modify(Color8u* color, int x, int y, uint8_t* dataArr)
 		return false;
 	}
 	int index = 3 * (x + y * WIDTH);
-	dataArr[index] = color->r;
-	dataArr[index + 1] = color->g;
-	dataArr[index + 2] = color->b;
+	dataArr[index] = color.r;
+	dataArr[index + 1] = color.g;
+	dataArr[index + 2] = color.b;
 	return true;
 }
+
 
 
 void RoyalSocietyApp::insertAfter(Node* where, Shape* shape)
@@ -276,6 +279,34 @@ void RoyalSocietyApp::remove(Node* node)
 	node->next->prev = node->prev;
 	node->prev->next = node->next;
 	delete node;
+}
+
+void RoyalSocietyApp::moveGroup(Node* first, Node* last, Node* to)
+{
+	first->prev->next = last->next;
+	last->next->prev = first->prev;
+	to->next->prev = last;
+	to->next = first;
+}
+
+void RoyalSocietyApp::keyDown(KeyEvent event)
+{
+#define SPEED 5
+	switch(event.getChar())
+	{
+	case 'w':
+		sentry->next->item->move(0, -SPEED);
+		break;
+	case 'a':
+		sentry->next->item->move(-SPEED, 0);
+		break;
+	case 's':
+		sentry->next->item->move(0, SPEED);
+		break;
+	case 'd':
+		sentry->next->item->move(SPEED, 0);
+		break;
+	}
 }
 
 void RoyalSocietyApp::move(Node* node, Node* to)

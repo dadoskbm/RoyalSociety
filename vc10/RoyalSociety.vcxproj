@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Circle.h" />
+    <ClInclude Include="..\include\Node.h" />
     <ClInclude Include="..\include\Rectangle.h" />
     <ClInclude Include="..\include\Resources.h" />
     <ClInclude Include="..\include\RoyalSocietyApp.h" />
