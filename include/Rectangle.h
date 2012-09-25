@@ -7,6 +7,7 @@
 
 #include <Shape.h>
 #include "cinder\ImageIo.h"
+#include "RoyalSocietyApp.h"
 
 using namespace ci;
 
@@ -48,4 +49,55 @@ protected:
 	int x,y,l,w;
 };
 
+ShapeRectangle::ShapeRectangle(Color8u line, Color8u fill, int x, int y, int l, int w)
+{
+	this->x = x;
+	this->y = y;
+	this->l = l;
+	this->w = w;
+	this->fill = fill;
+	this->line = line;
+}
+
+void ShapeRectangle::draw(uint8_t* dataArr)
+{
+	int x2 = x + w;
+	int y2 = y + l;
+	drawLine(x, y, x, y2, line, dataArr);
+	drawLine(x, y, x2, y, line, dataArr);
+	drawLine(x, y2, x2, y2, line, dataArr);
+	drawLine(x2, y, x2, y2, line, dataArr);
+
+	if(fill != 0)
+	{
+		for(int xFill = x + 1; xFill < x2; xFill++)
+		{
+			for(int yFill = y + 1; yFill < y2; yFill++)
+			{
+				modify(fill, xFill, yFill, dataArr);
+			}
+		}
+	}
+}
+
+bool ShapeRectangle::isInsideShape(int pointX, int pointY)
+{
+	if(pointX > x && pointX <= x + w
+		&& pointY >= y && pointY <= y + l)
+		return true;
+	else
+		return false;
+}
+
+void ShapeRectangle::move(int dX, int dY)
+{
+	int newX = x + dX;
+	int newY = y + dY;
+	if(newX >= 0 && newX + w < WIDTH
+		&& newY >= 0 && newY + l < HEIGHT)
+	{
+		x = newX;
+		y = newY;
+	}
+}
 
