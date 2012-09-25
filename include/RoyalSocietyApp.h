@@ -13,6 +13,19 @@ Project by Brandon Dadosky for CSE 274 homework assignment 2
 * which means you are free to use, share, and remix it as long as you
 * give attribution.  Commercial uses are allowed.
 */
+
+/*
+ *REVIEW COMMENT SUMMARY: I liked how this project was done overall. For the most part the separation into different header
+						  files makes the code easy to follow and to modify. I could be wrong in the biggest change I made to
+						  'Shape defs.cpp' but it just didn't really seem to flow. I just feel like a method for a class should be
+						  contained in that class. It makes it easier to debug and to look at the class as a whole.
+
+						  I learned a bit from Brandon as well. Using a switch instead of a series of if statements makes a lot more sense.
+						  In the future I'd like to use his methods for drawing shapes instead of mine. Mine iterate through the entire
+						  surface to draw each one. His only examine and draw within a small area that he can guarantee the shape will be in.
+*/
+
+
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Texture.h"
