@@ -1,7 +1,15 @@
-#include <Rectangle.h>
-#include <Circle.h>
-#include "RoyalSocietyApp.h"
+//#include <Rectangle.h>
+//#include <Circle.h>
+//#include "RoyalSocietyApp.h"
 
+/*REVIEW COMMENT: I really feel like this code is lost in the  Shape defs.cpp. I understand that you're trying to put
+				  all of the shape methods in the same file. However, I feel like from a debugging standpoint it makes more
+				  sense for this code to be inside the corresponding header file in case something isn't working correctly.
+				  It will make it much easier to find and examine.I have moved the corresponding methods to their
+				  appropriate class. 
+*/
+
+/*
 ShapeRectangle::ShapeRectangle(Color8u line, Color8u fill, int x, int y, int l, int w)
 {
 	this->x = x;
@@ -102,3 +110,5 @@ void Circle::move(int dX, int dY)
 		yC = newY;
 	}
 }
+
+*/

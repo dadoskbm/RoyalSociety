@@ -27,6 +27,7 @@ void RoyalSocietyApp::setup()
 	insertAfter(sentry, new ShapeRectangle(Color8u(0, 0, 0), Color8u(0, 255, 0), 10, 20, 40, 40));
 	insertAfter(sentry, new ShapeRectangle(Color8u(0, 0, 0), Color8u(0, 0, 255), 10, 30, 40, 40));
 	insertAfter(sentry, new Circle(Color8u(0, 0, 0), Color8u(0xFA, 0xCA, 0xDE),225, 235, 99));
+	insertAfter(sentry, new Circle(Color8u(0, 0, 0), Color8u(0xFA, 0xCA, 0xDE), 400, 400, 20));
 	
 }
 
@@ -182,6 +183,13 @@ void drawLine(int x1, int y1, int x2, int y2, Color8u color, uint8_t* dataArr)
 	}
 }
 
+/*
+ *REVIEW COMMENT: I understand that you had moved the drawRectangle(draw()) method into Shape defs.cpp (Even though I moved it again)
+				  but when looking at the method it had changed. It wasn't a small change. It seems fairly drastic. To
+				  me that warrants either A. delete the old code or B. explain what changed for the next coder to read.
+				  Maybe there's a reason I would want to use one or the other.
+*/
+
 /**
 * @brief Draw Rectangle
 * 
@@ -313,6 +321,11 @@ void RoyalSocietyApp::moveGroup(Node* first, Node* last, Node* to)
 void RoyalSocietyApp::keyDown(KeyEvent event)
 {
 #define SPEED 5
+
+	/*
+	 *REVIEW COMMENT: I really like how you used switch(event.getChar()) as opposed to the way I did it.
+					  It simplifies the code and at first glance is easier to understand.
+	*/
 	switch(event.getChar())
 	{
 	case 'w':
@@ -327,7 +340,11 @@ void RoyalSocietyApp::keyDown(KeyEvent event)
 	case 'd':
 		sentry->next->item->move(SPEED, 0);
 		break;
-	case event.KEY_SLASH:
+		/*
+		 *REVIEW COMMENT: You had this set to KEY_SLASH which wasn't the instructions we were given but it did work
+						  I changed it to work with '?' instead.				
+		*/
+	case '?':
 		showInstructions = !showInstructions;
 		break;
 	}
